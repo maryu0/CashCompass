@@ -6,17 +6,17 @@ const rateLimit = require("express-rate-limit");
 const compression = require("compression");
 
 // Import routes
-const authRoutes = require("");
-const userRoutes = require("");
-const transactionRoutes = require("");
-const budgetRoutes = require(""); //* may delete later
-const alertRoutes = require("");
-const notificationRoutes = require("");
-const analyticsRoutes = require("");
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+const transactionRoutes = require("./routes/transactionRoutes");
+const budgetRoutes = require("./routes/budgetRoutes"); //* may delete later
+const alertRoutes = require("./routes/alertRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
+const analyticsRoutes = require("./routes/analyticsRoutes");
 
 // Middleware setup
-const { errorHandler } = require("");
-const { notFound } = require("");
+const { errorHandler } = require("./middlewares/errorHandler");
+const { notFound } = require("./middlewares/notFound");
 
 const app = express();
 
@@ -68,8 +68,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/budgets", budgetRoutes);
-app.use("/api/alert", alertRoutes);
-app.use("/api/notification", notificationRoutes);
+app.use("/api/alerts", alertRoutes);
+app.use("/api/notifications", notificationRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
 // Root route
