@@ -320,14 +320,12 @@ const createError = (message, statusCode = 500, type = null) => {
 };
 
 module.exports = {
-  notFound,
   errorHandler,
   asyncHandler,
   handleValidationErrors,
   devErrorLogger,
   prodErrorLogger,
   createError,
-
   // Custom error classes
   InsufficientFundsError,
   BudgetExceededError,

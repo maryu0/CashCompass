@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const compression = require("compression");
 
+const app = express();
+
 // Import routes
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -13,12 +15,11 @@ const budgetRoutes = require("./routes/budgetRoutes"); //* may delete later
 const alertRoutes = require("./routes/alertRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const analyticsRoutes = require("./routes/analyticsRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 
 // Middleware setup
 const { errorHandler } = require("./middlewares/errorHandler");
 const { notFound } = require("./middlewares/notFound");
-
-const app = express();
 
 app.set("trust proxy", 1);
 
@@ -71,6 +72,7 @@ app.use("/api/budgets", budgetRoutes);
 app.use("/api/alerts", alertRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/analytics", analyticsRoutes);
+app.use("/api/categories", categoryRoutes);
 
 // Root route
 app.get("/", (req, res) => {

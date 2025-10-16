@@ -1,10 +1,10 @@
 const express = require("express");
+const { body } = require("express-validator");
 const Budget = require("../models/Budget");
 const Category = require("../models/Category");
 const Transaction = require("../models/Transaction");
-const auth = require("../middleware/auth");
+const { auth } = require("../middlewares/authMiddleware");
 const budgetController = require("../controllers/budgetController");
-const budgetMiddleware = require("../middlewares/budgetMiddleware");
 
 // @route   POST /api/budgets
 // @desc    Create a new budget
@@ -61,7 +61,7 @@ const updateBudgetValidation = [
 ];
 
 // @route   POST /api/budgets
-router.post("/", budgetMiddleware, createBudgetValidation, (req, res, next) =>
+router.post("/", auth, createBudgetValidation, (req, res, next) =>
   budgetController.createBudget(req, res, next, {
     Budget,
     Category,
@@ -70,17 +70,17 @@ router.post("/", budgetMiddleware, createBudgetValidation, (req, res, next) =>
 );
 
 // @route   GET /api/budgets
-router.get("/", budgetMiddleware, (req, res, next) =>
+router.get("/", auth, (req, res, next) =>
   budgetController.getBudgets(req, res, next, { Budget, Category, Transaction })
 );
 
 // @route   GET /api/budgets/:id
-router.get("/:id", budgetMiddleware, (req, res, next) =>
+router.get("/:id", auth, (req, res, next) =>
   budgetController.getBudget(req, res, next, { Budget, Category, Transaction })
 );
 
 // @route   PUT /api/budgets/:id
-router.put("/:id", budgetMiddleware, updateBudgetValidation, (req, res, next) =>
+router.put("/:id", auth, updateBudgetValidation, (req, res, next) =>
   budgetController.updateBudget(req, res, next, {
     Budget,
     Category,
@@ -89,7 +89,7 @@ router.put("/:id", budgetMiddleware, updateBudgetValidation, (req, res, next) =>
 );
 
 // @route   DELETE /api/budgets/:id
-router.delete("/:id", budgetMiddleware, (req, res, next) =>
+router.delete("/:id", auth, (req, res, next) =>
   budgetController.deleteBudget(req, res, next, {
     Budget,
     Category,
@@ -98,7 +98,7 @@ router.delete("/:id", budgetMiddleware, (req, res, next) =>
 );
 
 // @route   GET /api/budgets/analytics/overview
-router.get("/analytics/overview", budgetMiddleware, (req, res, next) =>
+router.get("/analytics/overview", auth, (req, res, next) =>
   budgetController.getBudgetAnalyticsOverview(req, res, next, {
     Budget,
     Category,
@@ -107,7 +107,7 @@ router.get("/analytics/overview", budgetMiddleware, (req, res, next) =>
 );
 
 // @route   POST /api/budgets/:id/duplicate
-router.post("/:id/duplicate", budgetMiddleware, (req, res, next) =>
+router.post("/:id/duplicate", auth, (req, res, next) =>
   budgetController.duplicateBudget(req, res, next, {
     Budget,
     Category,

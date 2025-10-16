@@ -1,7 +1,7 @@
 const express = require("express");
 const { body } = require("express-validator");
 const AuthController = require("../controllers/authController");
-const authMiddleware = require("../middlewares/authMiddleware");
+const { auth } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
@@ -59,7 +59,7 @@ router.post("/login", loginValidation, AuthController.login);
 // @route   GET /api/auth/me
 // @desc    Get current user
 // @access  Private
-router.get("/me", authMiddleware, AuthController.getCurrentUser);
+router.get("/me", auth, AuthController.getCurrentUser);
 
 // @route   POST /api/auth/forgot-password
 // @desc    Send password reset email
@@ -82,6 +82,6 @@ router.post(
 // @route   POST /api/auth/logout
 // @desc    Logout user (optional - mainly for client-side token removal)
 // @access  Private
-router.post("/logout", authMiddleware, AuthController.logout);
+router.post("/logout", auth, AuthController.logout);
 
 module.exports = router;

@@ -4,7 +4,11 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const Transaction = require("../models/Transaction");
 const Budget = require("../models/Budget");
-const auth = require("../middleware/auth");
+const { auth } = require("../middlewares/authMiddleware");
+const {
+  checkAccountStatus,
+  addUserMetadata,
+} = require("../middlewares/userMiddleware");
 
 const router = express.Router();
 

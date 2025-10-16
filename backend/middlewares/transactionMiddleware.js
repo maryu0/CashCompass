@@ -294,3 +294,16 @@ const validateCategoryOwnership = async (req, res, next) => {
     });
   }
 };
+
+module.exports = {
+  validateCreateTransaction,
+  validateUpdateTransaction,
+  validateTransactionQuery,
+  validateTransactionId,
+  validateSummaryQuery,
+  validateExportQuery,
+  validateBulkTransactions,
+  validateTrendsQuery,
+  checkTransactionOwnership,
+  validateCategoryOwnership,
+};

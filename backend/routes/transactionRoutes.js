@@ -7,7 +7,7 @@ const Category = require("../models/Category");
 // @desc    Create a new transaction
 // @access  Private
 const transactionController = require("../controllers/transactionController");
-const transactionMiddleware = require("../middlewares/transactionMiddleware");
+const { auth } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
@@ -55,19 +55,15 @@ const updateTransactionValidation = [
 ];
 
 // @route   POST /api/transactions
-router.post(
-  "/",
-  transactionMiddleware,
-  createTransactionValidation,
-  (req, res, next) =>
-    transactionController.createTransaction(req, res, next, {
-      Transaction,
-      Category,
-    })
+router.post("/", auth, createTransactionValidation, (req, res, next) =>
+  transactionController.createTransaction(req, res, next, {
+    Transaction,
+    Category,
+  })
 );
 
 // @route   GET /api/transactions
-router.get("/", transactionMiddleware, (req, res, next) =>
+router.get("/", auth, (req, res, next) =>
   transactionController.getTransactions(req, res, next, {
     Transaction,
     Category,
@@ -75,7 +71,7 @@ router.get("/", transactionMiddleware, (req, res, next) =>
 );
 
 // @route   GET /api/transactions/:id
-router.get("/:id", transactionMiddleware, (req, res, next) =>
+router.get("/:id", auth, (req, res, next) =>
   transactionController.getTransaction(req, res, next, {
     Transaction,
     Category,
@@ -83,19 +79,15 @@ router.get("/:id", transactionMiddleware, (req, res, next) =>
 );
 
 // @route   PUT /api/transactions/:id
-router.put(
-  "/:id",
-  transactionMiddleware,
-  updateTransactionValidation,
-  (req, res, next) =>
-    transactionController.updateTransaction(req, res, next, {
-      Transaction,
-      Category,
-    })
+router.put("/:id", auth, updateTransactionValidation, (req, res, next) =>
+  transactionController.updateTransaction(req, res, next, {
+    Transaction,
+    Category,
+  })
 );
 
 // @route   DELETE /api/transactions/:id
-router.delete("/:id", transactionMiddleware, (req, res, next) =>
+router.delete("/:id", auth, (req, res, next) =>
   transactionController.deleteTransaction(req, res, next, {
     Transaction,
     Category,
@@ -103,12 +95,12 @@ router.delete("/:id", transactionMiddleware, (req, res, next) =>
 );
 
 // @route   GET /api/transactions/summary
-router.get("/summary", transactionMiddleware, (req, res, next) =>
+router.get("/summary", auth, (req, res, next) =>
   transactionController.getSummary(req, res, next, { Transaction, Category })
 );
 
 // @route   POST /api/transactions/bulk
-router.post("/bulk", transactionMiddleware, (req, res, next) =>
+router.post("/bulk", auth, (req, res, next) =>
   transactionController.bulkCreateTransactions(req, res, next, {
     Transaction,
     Category,
@@ -116,7 +108,7 @@ router.post("/bulk", transactionMiddleware, (req, res, next) =>
 );
 
 // @route   GET /api/transactions/export
-router.get("/export", transactionMiddleware, (req, res, next) =>
+router.get("/export", auth, (req, res, next) =>
   transactionController.exportTransactions(req, res, next, {
     Transaction,
     Category,

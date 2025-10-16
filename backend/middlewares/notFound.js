@@ -3,3 +3,5 @@ const notFound = (req, res, next) => {
   error.statusCode = 404;
   next(error);
 };
+
+module.exports = { notFound };
