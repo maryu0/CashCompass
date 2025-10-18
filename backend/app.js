@@ -16,7 +16,7 @@ const alertRoutes = require("./routes/alertRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const analyticsRoutes = require("./routes/analyticsRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
-
+const chatbotRoutes = require("./routes/chatbotRoutes");
 // Middleware setup
 const { errorHandler } = require("./middlewares/errorHandler");
 const { notFound } = require("./middlewares/notFound");
@@ -73,6 +73,7 @@ app.use("/api/alerts", alertRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/chatbot", chatbotRoutes);
 
 // Root route
 app.get("/", (req, res) => {
